@@ -17,7 +17,7 @@ Mac Linux or win10
 获取代码（get source code）
 
 ```
-go get github.com/cloudfstrife/bar
+go get -u github.com/cloudfstrife/bar
 ```
 
 ### 单进度条使用示例（single progress bar demo）
