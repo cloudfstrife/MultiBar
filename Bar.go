@@ -23,6 +23,7 @@ type Bar struct {
 	UnprocessedColor string
 	Percent          int
 	PercentColor     string
+	showed           bool
 }
 
 /*Default 创建默认处理*/
@@ -43,8 +44,14 @@ func Default() *Bar {
 	}
 }
 
-/*Show 生成输出模板*/
-func (process Bar) Show(w io.Writer, maxTitle int) {
+/*Show 输出*/
+func (process *Bar) Show(w io.Writer, maxTitle int, clean bool) {
+	if clean && process.showed {
+		fmt.Fprintf(w, "\u001b[1A\u001b[2K")
+	} else {
+		process.showed = true
+	}
+
 	if process.Percent > 100 {
 		process.Percent = 100
 		process.ProcessingFlag = 32
@@ -96,7 +103,7 @@ func (process Bar) Show(w io.Writer, maxTitle int) {
 	// 生成百分比
 	formatBuf.WriteString("\u001b[0m")
 	formatBuf.WriteString(process.PercentColor)
-	formatBuf.WriteString("[ %d%% ]\n")
+	formatBuf.WriteString("[ %3d%% ]\n")
 
 	fmt.Fprintf(w, formatBuf.String(),
 		process.Title,
