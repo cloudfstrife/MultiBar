@@ -7,111 +7,146 @@ import (
 	"strconv"
 )
 
-/*Bar 处理进度*/
+// Bar 处理进度
 type Bar struct {
-	Title            string
-	TitleColor       string
-	Prefix           string
-	PrefixColor      string
-	Postfix          string
-	PostfixColor     string
-	ProcessedFlag    byte
-	ProcessedColor   string
-	ProcessingFlag   byte
-	ProcessingColor  string
-	UnprocessedFlag  byte
+	//Title 进度条title
+	Title string
+	//TitleColor title颜色
+	TitleColor string
+	//Prefix 前缀字符
+	Prefix string
+	//PrefixColor 前缀字符颜色
+	PrefixColor string
+	//Postfix 后缀字符
+	Postfix string
+	//PostfixColor 后缀字符颜色
+	PostfixColor string
+	//ProcessedFlag 已处理部分字符
+	ProcessedFlag rune
+	//ProcessedColor 已处理部分字符颜色
+	ProcessedColor string
+	//ProcessingFlag 处理字符
+	ProcessingFlag rune
+	//ProcessingColor 处理字符颜色
+	ProcessingColor string
+	//UnprocessedFlag 未处理部分字符
+	UnprocessedFlag rune
+	//UnprocessedColor 未处理部分颜色
 	UnprocessedColor string
-	Percent          int
-	PercentColor     string
-	showed           bool
+	//Percent 比例
+	Percent int
+	//PercentColor 比例颜色
+	PercentColor string
+	//showed 是否已经显示过，如果已经显示过，会做光标上移并清除行的操作
+	showed bool
 }
 
-/*Default 创建默认处理*/
-func Default() *Bar {
+const (
+	//Black 黑色
+	Black = "\u001b[30m"
+	//Red 红色
+	Red = "\u001b[31m"
+	//Green 绿色
+	Green = "\u001b[32m"
+	//Yellow 黄色
+	Yellow = "\u001b[33m"
+	//Blue 蓝色
+	Blue = "\u001b[34m"
+	//Carmine 洋红色
+	Carmine = "\u001b[35m"
+	//Cyan 青色
+	Cyan = "\u001b[36m"
+	//White 白色
+	White = "\u001b[37m"
+	//Reset 重置
+	Reset = "\u001b[0m"
+)
+
+// NewDefault 创建默认处理
+func NewDefault() *Bar {
 	return &Bar{
-		TitleColor:       "\u001b[1m\u001b[38;5;21m",
+		TitleColor:       Red,
 		Prefix:           " | ",
-		PrefixColor:      "\u001b[1m\u001b[38;5;87m",
+		PrefixColor:      Yellow,
 		Postfix:          " | ",
-		PostfixColor:     "\u001b[1m\u001b[38;5;87m",
-		ProcessedFlag:    45,
-		ProcessedColor:   "\u001b[1m\u001b[38;5;245m",
-		ProcessingFlag:   62,
-		ProcessingColor:  "\u001b[1m\u001b[38;5;245m",
-		UnprocessedFlag:  32,
-		UnprocessedColor: "\u001b[1m\u001b[38;5;245m",
-		PercentColor:     "\u001b[1m\u001b[38;5;245m",
+		PostfixColor:     Yellow,
+		ProcessedFlag:    '=',
+		ProcessedColor:   Green,
+		ProcessingFlag:   '>',
+		ProcessingColor:  Green,
+		UnprocessedFlag:  ' ',
+		UnprocessedColor: Yellow,
+		PercentColor:     Blue,
 	}
 }
 
-/*Show 输出*/
-func (process *Bar) Show(w io.Writer, maxTitle int, clean bool) {
-	if clean && process.showed {
-		fmt.Fprintf(w, "\u001b[1A\u001b[2K")
+// Show 输出
+// 参数说明
+// w io.Writer 	输出目标
+// max			title长度
+// clean		是否清除上次的输出
+func (bar *Bar) Show(w io.Writer, max int, clean bool) {
+	if clean && bar.showed {
+		fmt.Fprintf(w, "\u001b[1A\u001b[2K\u001b[0m")
 	} else {
-		process.showed = true
+		bar.showed = true
 	}
 
-	if process.Percent > 100 {
-		process.Percent = 100
-		process.ProcessingFlag = 32
+	if bar.Percent > 100 {
+		bar.Percent = 100
 	}
-
-	var formatBuf bytes.Buffer
+	var format = bytes.NewBufferString("")
 	// 添加title
-	formatBuf.WriteString(process.TitleColor)
-	if maxTitle < len(process.Title) {
-		maxTitle = len(process.Title)
+	format.WriteString(bar.TitleColor)
+	if max < len(bar.Title) {
+		max = len(bar.Title)
 	}
+	format.WriteString("%-" + strconv.Itoa(max) + "s")
+	format.WriteString(Reset)
 
-	formatBuf.WriteString("%-" + strconv.Itoa(maxTitle) + "s")
-
-	// 重置格式
-	formatBuf.WriteString("\u001b[0m")
 	// 添加处理
-	formatBuf.WriteString(process.PrefixColor)
-	formatBuf.WriteString("%s")
+	format.WriteString(bar.PrefixColor)
+	format.WriteString("%s")
+	format.WriteString(Reset)
 
 	//添加已处理部分
-	formatBuf.WriteString("\u001b[0m")
-	formatBuf.WriteString(process.ProcessedColor)
-	var processedBuf bytes.Buffer
-	for i := 0; i < process.Percent; i++ {
-		processedBuf.WriteByte(process.ProcessedFlag)
+	format.WriteString(bar.ProcessedColor)
+	var processed = bytes.NewBufferString("")
+	for i := 0; i < bar.Percent; i++ {
+		processed.WriteRune(bar.ProcessedFlag)
 	}
-	formatBuf.WriteString("%s")
-
+	format.WriteString("%s")
+	format.WriteString(Reset)
 	// 添加正在处理标识
-	formatBuf.WriteString("\u001b[0m")
-	formatBuf.WriteString(process.ProcessingColor)
-	formatBuf.WriteString("%c")
+	format.WriteString(bar.ProcessingColor)
+	format.WriteString("%c")
+	format.WriteString(Reset)
 
 	// 添加未处理部分
-	formatBuf.WriteString("\u001b[0m")
-	formatBuf.WriteString(process.UnprocessedColor)
-	var unprocessedBuf bytes.Buffer
-	for i := 0; i < 100-process.Percent; i++ {
-		unprocessedBuf.WriteByte(process.UnprocessedFlag)
+	format.WriteString(bar.UnprocessedColor)
+	var unprocessed = bytes.NewBufferString("")
+	for i := 0; i < 100-bar.Percent; i++ {
+		unprocessed.WriteRune(bar.UnprocessedFlag)
 	}
-	formatBuf.WriteString("%s")
+	format.WriteString("%s")
+	format.WriteString(Reset)
 
 	// 添加后置处理
-	formatBuf.WriteString("\u001b[0m")
-	formatBuf.WriteString(process.PostfixColor)
-	formatBuf.WriteString("%s")
-
+	format.WriteString(bar.PostfixColor)
+	format.WriteString("%s")
+	format.WriteString(Reset)
 	// 生成百分比
-	formatBuf.WriteString("\u001b[0m")
-	formatBuf.WriteString(process.PercentColor)
-	formatBuf.WriteString("[ %3d%% ]\n")
+	format.WriteString(bar.PercentColor)
+	format.WriteString("[ %3d%% ]\n")
+	format.WriteString(Reset)
 
-	fmt.Fprintf(w, formatBuf.String(),
-		process.Title,
-		process.Prefix,
-		processedBuf.String(),
-		process.ProcessingFlag,
-		unprocessedBuf.String(),
-		process.Postfix,
-		process.Percent,
+	fmt.Fprintf(w, format.String(),
+		bar.Title,
+		bar.Prefix,
+		processed.String(),
+		bar.ProcessingFlag,
+		unprocessed.String(),
+		bar.Postfix,
+		bar.Percent,
 	)
 }

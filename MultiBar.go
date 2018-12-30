@@ -5,42 +5,44 @@ import (
 	"io"
 )
 
-/*MultiBar 从进度条*/
+//MultiBar 从进度条
 type MultiBar struct {
-	Bars     map[string]*Bar
-	MaxTitle int
-	showed   bool
+	bars   map[string]*Bar
+	max    int
+	showed bool
 }
 
-/*Show 输出进度条*/
-func (multiBar *MultiBar) Show(w io.Writer) {
+//Show 输出进度条
+func (bars *MultiBar) Show(w io.Writer) {
 	// 第一次输出不需要清除，之后的输出，先清除之前的输出，再进行输出
 	// \u001b[1A 上移一行
 	// \u001b[2K 删除整行
-	if multiBar.showed {
-		for i := 0; i < len(multiBar.Bars); i++ {
+	if bars.showed {
+		for i := 0; i < len(bars.bars); i++ {
 			fmt.Fprintf(w, "\u001b[1A\u001b[2K")
 		}
 	} else {
-		multiBar.showed = true
+		bars.showed = true
 	}
 
 	var i int
-	for _, value := range multiBar.Bars {
+	for _, value := range bars.bars {
 		i++
-		fmt.Fprintf(w, "\u001b[0m[ %d/%d ]", i, len(multiBar.Bars))
-		value.Show(w, multiBar.MaxTitle, false)
+		fmt.Fprintf(w, "\u001b[0m[ %d/%d ]", i, len(bars.bars))
+		value.Show(w, bars.max, false)
 	}
 }
 
-/*Append 添加一个进度条输出*/
-func (multiBar *MultiBar) Append(index string, process *Bar) {
-	if multiBar.Bars == nil {
-		multiBar.Bars = make(map[string]*Bar)
+//Append 添加一个进度条输出
+// 参数说明
+// bar 进度条指针
+// 注意：title不可重名
+func (bars *MultiBar) Append(bar *Bar) {
+	if bars.bars == nil {
+		bars.bars = make(map[string]*Bar)
 	}
-	multiBar.Bars[index] = process
-
-	if len(process.Title) > multiBar.MaxTitle {
-		multiBar.MaxTitle = len(process.Title)
+	bars.bars[bar.Title] = bar
+	if len(bar.Title) > bars.max {
+		bars.max = len(bar.Title)
 	}
 }
