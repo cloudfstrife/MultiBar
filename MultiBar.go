@@ -7,7 +7,7 @@ import (
 
 //MultiBar 从进度条
 type MultiBar struct {
-	bars   map[string]*Bar
+	bars   []*Bar
 	max    int
 	showed bool
 }
@@ -39,9 +39,9 @@ func (bars *MultiBar) Show(w io.Writer) {
 // 注意：title不可重名
 func (bars *MultiBar) Append(bar *Bar) {
 	if bars.bars == nil {
-		bars.bars = make(map[string]*Bar)
+		bars.bars = []*Bar{}
 	}
-	bars.bars[bar.Title] = bar
+	bars.bars = append(bars.bars, bar)
 	if len(bar.Title) > bars.max {
 		bars.max = len(bar.Title)
 	}
