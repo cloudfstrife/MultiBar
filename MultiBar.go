@@ -3,6 +3,7 @@ package bar
 import (
 	"fmt"
 	"io"
+	"sync"
 )
 
 //MultiBar 从进度条
@@ -10,10 +11,24 @@ type MultiBar struct {
 	bars   []*Bar
 	max    int
 	showed bool
+	lock   sync.Mutex
+}
+
+//NewMultiBar 创建MultiBar
+func NewMultiBar() *MultiBar {
+	return &MultiBar{
+		bars:   []*Bar{},
+		max:    0,
+		showed: false,
+		lock:   sync.Mutex{},
+	}
 }
 
 //Show 输出进度条
 func (bars *MultiBar) Show(w io.Writer) {
+	bars.lock.Lock()
+	defer bars.lock.Unlock()
+
 	// 第一次输出不需要清除，之后的输出，先清除之前的输出，再进行输出
 	// \u001b[1A 上移一行
 	// \u001b[2K 删除整行

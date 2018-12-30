@@ -26,82 +26,80 @@ go get -u github.com/cloudfstrife/bar
 package main
 
 import (
-	"github.com/cloudfstrife/bar"
 	"os"
 	"time"
+
+	"github.com/cloudfstrife/bar"
 )
 
 func main() {
-
-	process1 := bar.Default()
-	process1.Title = "Test"
-	process1.Percent = 10
-	process1.Show(os.Stdout, 0, true)
-	time.Sleep(1 * time.Second)
-
-	process1.Percent = 20
-	process1.Show(os.Stdout, 0, true)
-	time.Sleep(1 * time.Second)
-
-	process1.Percent = 30
-	process1.Show(os.Stdout, 0, true)
-	time.Sleep(1 * time.Second)
-
-	process1.Percent = 40
-	process1.Show(os.Stdout, 0, true)
-	time.Sleep(1 * time.Second)
-
-	process1.Percent = 50
-	process1.Show(os.Stdout, 0, true)
-	time.Sleep(1 * time.Second)
-
-	process1.Percent = 100
-	process1.Show(os.Stdout, 0, true)
+	bar := bar.NewDefault()
+	bar.Title = "bar1"
+	for i := 0; i <= 100; i++ {
+		bar.Percent = i
+		bar.Show(os.Stdout, 10, true)
+		time.Sleep(100 * time.Millisecond)
+	}
 }
 ```
 
-### 单进度条使用示例（multi progress bar demo）
+### 多进度条使用示例（multi progress bar demo）
 
 ```
 package main
 
 import (
-	"github.com/cloudfstrife/bar"
 	"os"
+	"sync"
 	"time"
+
+	"github.com/cloudfstrife/bar"
 )
 
 func main() {
-	multiBar := bar.MultiBar{}
+	bars := bar.MultiBar{}
+	bar1 := bar.NewDefault()
+	bar1.Title = "bar1"
 
-	process1 := bar.Default()
-	process1.Title = "default"
-	process1.Percent = 5
+	bar2 := bar.NewDefault()
+	bar2.Title = "bar2"
 
-	process2 := bar.Default()
-	process2.Title = "Test"
-	process2.Percent = 0
+	bar3 := bar.NewDefault()
+	bar3.Title = "bar3"
 
-	multiBar.Append("default", process1)
-	multiBar.Append("Test", process2)
+	bars.Append(bar1)
+	bars.Append(bar2)
+	bars.Append(bar3)
+	wg := sync.WaitGroup{}
 
-	multiBar.Show(os.Stdout)
-	time.Sleep(1 * time.Second)
+	pro := func(b *bar.Bar, t time.Duration) {
+		wg.Done()
+		for i := 0; i <= 100; i++ {
+			b.Percent = i
+			time.Sleep(t)
+		}
+	}
+	wg.Add(1)
+	go pro(bar1, 100*time.Millisecond)
 
-	process1.Percent = 15
-	process2.Percent = 10
-	multiBar.Show(os.Stdout)
-	time.Sleep(1 * time.Second)
+	wg.Add(1)
+	go pro(bar2, 200*time.Millisecond)
 
-	process1.Percent = 25
-	process2.Percent = 20
-	multiBar.Show(os.Stdout)
-	time.Sleep(1 * time.Second)
+	wg.Add(1)
+	go pro(bar3, 500*time.Millisecond)
 
-	process1.Percent = 35
-	process2.Percent = 30
-	multiBar.Show(os.Stdout)
-	time.Sleep(1 * time.Second)
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		for {
+			bars.Show(os.Stdout)
+			time.Sleep(100 * time.Millisecond)
+			if bar1.Percent == 100 && bar2.Percent == 100 && bar3.Percent == 100 {
+				break
+			}
+		}
+	}()
+	wg.Wait()
 }
 ```
 
@@ -116,7 +114,7 @@ func main() {
 ### Bar.go
 
 ```
-func Default() *Bar 
+func NewDefault() *Bar 
 ```
 
 创建一个默认的进度条，可以修改此方法中的初始化值构建个性化的默认进度条
@@ -124,18 +122,16 @@ func Default() *Bar
 create a default progress bar , you can modify the value in this function to build personalized progress bar.
 
 ```
-func (process *Bar) Show(w io.Writer, maxTitle int, clean bool) 
+func (process *Bar) Show(w io.Writer, max int, clean bool) 
 ```
 
 输出进度条
-
-print progress bar
 
 参数说明：
 
 * w			输出目地址
 
-* maxTitle	最长的title，用于多进度条输出时对齐输出内容
+* max		最长的title，用于多进度条输出时对齐输出内容
 
 * clean		是否清除上一次输出，Bar结构体内部有一个showed，表示是否进行过输出，如果是第一次输出，即使clean为true也不会清理
 
@@ -143,14 +139,22 @@ parameter description
 
 * w			output target 
 
-* maxTitle	use it for align multi progress bar output content
+* max	use it for align multi progress bar output content
 
 * clean		clean or don't clean the last time output , variable `showed` in `Bar` struct means is already do first out，if current out is the first invoked，this clean parameter is invalid
 
 ### MultiBar.go
 
 ```
-func (multiBar *MultiBar) Append(index string, process *Bar)
+func NewMultiBar() *MultiBar 
+```
+
+创建一个进度多进度条struct 
+
+create a new multe progress bar
+
+```
+func (multiBar *MultiBar) Append(process *Bar)
 ```
 
 添加一个进度条到多进度条输出中
@@ -159,13 +163,9 @@ append progress bar into multe progress bar
 
 参数说明 
 
-* index		为进度条增加一个键，方便在其它地方获取
-
 * process 	进度条指针
 
 parameter description
-
-* index		key for current progress bar ,you can get this progress bar use this key 
 
 * process		point to progress bar 
 
