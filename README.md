@@ -4,7 +4,7 @@
 
 go语言编写的彩色命令行进度条
 
-show colorful progress bar on the command line,Write in  go programming language.
+show colorful progress bar in the command line,Write in  go programming language.
 
 ## 环境（Environment）
 
@@ -107,11 +107,11 @@ func main() {
 
 ```
 .
-├── Bar.go				进度条定义（single progress bar definition）
-└── MultiBar.go			多进度条定义（multi progress bar definition）
+├── bar.go					进度条定义（single progress bar definition）
+└── multi_bar.go			多进度条定义（multi progress bar definition）
 ```
 
-### Bar.go
+### bar.go
 
 ```
 func NewDefault() *Bar 
@@ -129,21 +129,21 @@ func (process *Bar) Show(w io.Writer, max int, clean bool)
 
 参数说明：
 
-* w			输出目地址
+* w			&nbsp;&nbsp;输出目地址
 
-* max		最长的title，用于多进度条输出时对齐输出内容
+* max		&nbsp;&nbsp;最长的title，用于多进度条输出时对齐输出内容
 
-* clean		是否清除上一次输出，Bar结构体内部有一个showed，表示是否进行过输出，如果是第一次输出，即使clean为true也不会清理
+* clean		&nbsp;&nbsp;是否清除上一次输出，Bar结构体内部有一个showed，表示是否进行过输出，如果是第一次输出，即使clean为true也不会清理
 
 parameter description
 
-* w			output target 
+* w			&nbsp;&nbsp;output target 
 
-* max	use it for align multi progress bar output content
+* max		&nbsp;&nbsp;use it for align multi progress bar output content
 
-* clean		clean or don't clean the last time output , variable `showed` in `Bar` struct means is already do first out，if current out is the first invoked，this clean parameter is invalid
+* clean		&nbsp;&nbsp;clean or don't clean the last time output , variable `showed` in `Bar` struct means is already do first out，if current out is the first invoked，this clean parameter is invalid
 
-### MultiBar.go
+### multi_bar.go
 
 ```
 func NewMultiBar() *MultiBar 
@@ -151,7 +151,7 @@ func NewMultiBar() *MultiBar
 
 创建一个进度多进度条struct 
 
-create a new multe progress bar
+create a multe progress bar
 
 ```
 func (multiBar *MultiBar) Append(process *Bar)
@@ -163,11 +163,11 @@ append progress bar into multe progress bar
 
 参数说明 
 
-* process 	进度条指针
+* process 		&nbsp;&nbsp;进度条指针
 
 parameter description
 
-* process		point to progress bar 
+* process		&nbsp;&nbsp;point to progress bar 
 
 
 ```
@@ -180,11 +180,11 @@ print progress bar
 
 参数说明 
 
-* w			输出目地址
+* w			&nbsp;&nbsp;输出目地址
 
 parameter description
 
-* w			output target 
+* w			&nbsp;&nbsp;output target 
 
 ## Reference(参考资料)
 
