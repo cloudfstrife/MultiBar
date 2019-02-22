@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"fmt"
 	"io"
-	"strconv"
 )
 
 // Bar 处理进度
@@ -60,6 +59,8 @@ const (
 	White = "\u001b[37m"
 	//Reset 重置
 	Reset = "\u001b[0m"
+	//FormatTemplate 格式模板
+	FormatTemplate = "%s%%-%ds\u001b[0m%s%%s\u001b[0m%s%%s\u001b[0m%s%%c\u001b[0m%s%%s\u001b[0m%s%%s\u001b[0m%s[ %%3d%%%% ]\n\u001b[0m"
 )
 
 // NewDefault 创建默认处理
@@ -95,52 +96,23 @@ func (bar *Bar) Show(w io.Writer, max int, clean bool) {
 	if bar.Percent > 100 {
 		bar.Percent = 100
 	}
-	var format = bytes.NewBufferString("")
-	// 添加title
-	format.WriteString(bar.TitleColor)
+	// 计算最长Title
 	if max < len(bar.Title) {
 		max = len(bar.Title)
 	}
-	format.WriteString("%-" + strconv.Itoa(max) + "s")
-	format.WriteString(Reset)
-
-	// 添加处理
-	format.WriteString(bar.PrefixColor)
-	format.WriteString("%s")
-	format.WriteString(Reset)
-
-	//添加已处理部分
-	format.WriteString(bar.ProcessedColor)
+	//已处理部分
 	var processed = bytes.NewBufferString("")
 	for i := 0; i < bar.Percent; i++ {
 		processed.WriteRune(bar.ProcessedFlag)
 	}
-	format.WriteString("%s")
-	format.WriteString(Reset)
-	// 添加正在处理标识
-	format.WriteString(bar.ProcessingColor)
-	format.WriteString("%c")
-	format.WriteString(Reset)
-
-	// 添加未处理部分
-	format.WriteString(bar.UnprocessedColor)
+	//未处理部分
 	var unprocessed = bytes.NewBufferString("")
 	for i := 0; i < 100-bar.Percent; i++ {
 		unprocessed.WriteRune(bar.UnprocessedFlag)
 	}
-	format.WriteString("%s")
-	format.WriteString(Reset)
+	format := fmt.Sprintf(FormatTemplate, bar.TitleColor, max, bar.PrefixColor, bar.ProcessedColor, bar.ProcessingColor, bar.UnprocessedColor, bar.PostfixColor, bar.PercentColor)
 
-	// 添加后置处理
-	format.WriteString(bar.PostfixColor)
-	format.WriteString("%s")
-	format.WriteString(Reset)
-	// 生成百分比
-	format.WriteString(bar.PercentColor)
-	format.WriteString("[ %3d%% ]\n")
-	format.WriteString(Reset)
-
-	fmt.Fprintf(w, format.String(),
+	fmt.Fprintf(w, format,
 		bar.Title,
 		bar.Prefix,
 		processed.String(),
