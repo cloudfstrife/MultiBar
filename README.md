@@ -91,6 +91,7 @@ func main() {
 	wg.Add(1)
 	go func() {
 		defer wg.Done()
+		defer bars.Show(os.Stdout)
 		for {
 			bars.Show(os.Stdout)
 			time.Sleep(100 * time.Millisecond)
