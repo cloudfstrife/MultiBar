@@ -43,8 +43,8 @@ func (bars *MultiBar) Show(w io.Writer) {
 	var i int
 	for _, value := range bars.bars {
 		i++
-		fmt.Fprintf(w, "\u001b[0m[ %d/%d ]", i, len(bars.bars))
-		value.Show(w, bars.max, false)
+		fmt.Fprintf(w, "[ %d/%d ] ", i, len(bars.bars))
+		fmt.Fprintln(w, value.Sout(bars.max))
 	}
 }
 

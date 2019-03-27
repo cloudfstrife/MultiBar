@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"sync"
 )
 
 // Bar 处理进度
@@ -38,6 +39,8 @@ type Bar struct {
 	PercentColor string
 	//showed 是否已经显示过，如果已经显示过，会做光标上移并清除行的操作
 	showed bool
+	//lock 输出锁
+	lock *sync.Mutex
 }
 
 const (
@@ -60,7 +63,7 @@ const (
 	//Reset 重置
 	Reset = "\u001b[0m"
 	//FormatTemplate 格式模板
-	FormatTemplate = "%s%%-%ds\u001b[0m%s%%s\u001b[0m%s%%s\u001b[0m%s%%c\u001b[0m%s%%s\u001b[0m%s%%s\u001b[0m%s[ %%3d%%%% ]\n\u001b[0m"
+	FormatTemplate = "%s%%-%ds\u001b[0m%s%%s\u001b[0m%s%%s\u001b[0m%s%%c\u001b[0m%s%%s\u001b[0m%s%%s\u001b[0m%s[ %%3d%%%% ]\u001b[0m"
 )
 
 // NewDefault 创建默认处理
@@ -78,41 +81,31 @@ func NewDefault() *Bar {
 		UnprocessedFlag:  ' ',
 		UnprocessedColor: Yellow,
 		PercentColor:     Blue,
+		lock:             &sync.Mutex{},
 	}
 }
 
-// Show 输出
-// 参数说明
-// w io.Writer 	输出目标
-// max			title长度
-// clean		是否清除上次的输出
-func (bar *Bar) Show(w io.Writer, max int, clean bool) {
-	if clean && bar.showed {
-		fmt.Fprintf(w, "\u001b[1A\u001b[2K\u001b[0m")
-	} else {
-		bar.showed = true
-	}
-
+//Sout 获取输出
+func (bar *Bar) Sout(max int) string {
 	if bar.Percent > 100 {
 		bar.Percent = 100
+	}
+	var processed = bytes.NewBufferString("")
+	for i := 0; i < bar.Percent; i++ {
+		processed.WriteRune(bar.ProcessedFlag)
 	}
 	// 计算最长Title
 	if max < len(bar.Title) {
 		max = len(bar.Title)
 	}
-	//已处理部分
-	var processed = bytes.NewBufferString("")
-	for i := 0; i < bar.Percent; i++ {
-		processed.WriteRune(bar.ProcessedFlag)
-	}
+
 	//未处理部分
 	var unprocessed = bytes.NewBufferString("")
 	for i := 0; i < 100-bar.Percent; i++ {
 		unprocessed.WriteRune(bar.UnprocessedFlag)
 	}
 	format := fmt.Sprintf(FormatTemplate, bar.TitleColor, max, bar.PrefixColor, bar.ProcessedColor, bar.ProcessingColor, bar.UnprocessedColor, bar.PostfixColor, bar.PercentColor)
-
-	fmt.Fprintf(w, format,
+	return fmt.Sprintf(format,
 		bar.Title,
 		bar.Prefix,
 		processed.String(),
@@ -121,4 +114,20 @@ func (bar *Bar) Show(w io.Writer, max int, clean bool) {
 		bar.Postfix,
 		bar.Percent,
 	)
+}
+
+// Show 输出
+// 参数说明
+// w io.Writer 	输出目标
+// max			title长度
+// clean		是否清除上次的输出
+func (bar *Bar) Show(w io.Writer, max int, clean bool) {
+	bar.lock.Lock()
+	defer bar.lock.Unlock()
+	if clean && bar.showed {
+		fmt.Fprintf(w, "\u001b[1A\u001b[2K\u001b[0m")
+	} else {
+		bar.showed = true
+	}
+	fmt.Fprintln(w, bar.Sout(max))
 }
