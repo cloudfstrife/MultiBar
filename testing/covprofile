@@ -1,0 +1,26 @@
+mode: set
+github.com/cloudfstrife/bar/multi_bar.go:18.30,25.2 1 0
+github.com/cloudfstrife/bar/multi_bar.go:28.41,35.17 3 0
+github.com/cloudfstrife/bar/multi_bar.go:43.2,44.34 2 0
+github.com/cloudfstrife/bar/multi_bar.go:35.17,36.39 1 0
+github.com/cloudfstrife/bar/multi_bar.go:36.39,38.4 1 0
+github.com/cloudfstrife/bar/multi_bar.go:39.8,41.3 1 0
+github.com/cloudfstrife/bar/multi_bar.go:44.34,48.3 3 0
+github.com/cloudfstrife/bar/multi_bar.go:55.40,56.22 1 0
+github.com/cloudfstrife/bar/multi_bar.go:59.2,60.31 2 0
+github.com/cloudfstrife/bar/multi_bar.go:56.22,58.3 1 0
+github.com/cloudfstrife/bar/multi_bar.go:60.31,62.3 1 0
+github.com/cloudfstrife/bar/bar.go:70.24,86.2 1 0
+github.com/cloudfstrife/bar/bar.go:89.38,90.23 1 1
+github.com/cloudfstrife/bar/bar.go:93.2,94.35 2 1
+github.com/cloudfstrife/bar/bar.go:98.2,98.26 1 1
+github.com/cloudfstrife/bar/bar.go:103.2,104.39 2 1
+github.com/cloudfstrife/bar/bar.go:107.2,116.3 2 1
+github.com/cloudfstrife/bar/bar.go:90.23,92.3 1 1
+github.com/cloudfstrife/bar/bar.go:94.35,96.3 1 1
+github.com/cloudfstrife/bar/bar.go:98.26,100.3 1 1
+github.com/cloudfstrife/bar/bar.go:104.39,106.3 1 1
+github.com/cloudfstrife/bar/bar.go:124.56,127.25 3 0
+github.com/cloudfstrife/bar/bar.go:132.2,132.32 1 0
+github.com/cloudfstrife/bar/bar.go:127.25,129.3 1 0
+github.com/cloudfstrife/bar/bar.go:129.8,131.3 1 0

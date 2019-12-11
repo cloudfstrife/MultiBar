@@ -1,22 +1,22 @@
 # MultiBar
 
-## About
+## 关于
 
-show colorful progress bar in the command line,Write in  go programming language.
+go语言编写的彩色命令行进度条
 
-## Environment
+## 环境
 
-Mac Linux or win10
+Mac Linux 或者 win10
 
-## Usage
+## 使用说明
 
-get source code
+获取代码
 
 ```
 go get -u github.com/cloudfstrife/bar
 ```
 
-### single progress bar demo
+### 单进度条示例
 
 ```
 package main
@@ -39,7 +39,7 @@ func main() {
 }
 ```
 
-### multi progress bar demo
+### 多进度条示例
 
 ```
 package main
@@ -100,12 +100,12 @@ func main() {
 }
 ```
 
-## Code description
+## 代码说明（Code description）
 
 ```
 .
-├── bar.go					single progress bar definition
-└── multi_bar.go			multi progress bar definition
+├── bar.go					进度条定义
+└── multi_bar.go			多进度条定义
 ```
 
 ### bar.go
@@ -114,21 +114,21 @@ func main() {
 func NewDefault() *Bar 
 ```
 
-create a default progress bar , you can modify the value in this function to build personalized progress bar.
+创建一个默认的进度条，可以修改此方法中的初始化值构建个性化的默认进度条
 
 ```
 func (process *Bar) Show(w io.Writer, max int, clean bool) 
 ```
 
-show progress bar
+输出进度条
 
-parameter description
+参数说明：
 
-* w			&nbsp;&nbsp;output target 
+* w			&nbsp;&nbsp;输出目地址
 
-* max		&nbsp;&nbsp;use it for align multi progress bar output content
+* max		&nbsp;&nbsp;最长的title，用于多进度条输出时对齐输出内容
 
-* clean		&nbsp;&nbsp;clean or don't clean the last time output , variable `showed` in `Bar` struct means is already do first out，if current out is the first invoked，this clean parameter is invalid
+* clean		&nbsp;&nbsp;是否清除上一次输出，Bar结构体内部有一个showed，表示是否进行过输出，如果是第一次输出，即使clean为true也不会清理
 
 ### multi_bar.go
 
@@ -136,44 +136,43 @@ parameter description
 func NewMultiBar() *MultiBar 
 ```
 
-create a multe progress bar
+创建一个进度多进度条struct 
 
 ```
 func (multiBar *MultiBar) Append(process *Bar)
 ```
 
-append progress bar into multe progress bar
+添加一个进度条到多进度条输出中
 
-parameter description
+参数说明 
 
-* process		&nbsp;&nbsp;point to progress bar 
+* process 		&nbsp;&nbsp;进度条指针
 
 ```
 func (multiBar *MultiBar) Show(w io.Writer) {
 ```
 
-show progress bar
+输出进度条
 
-parameter description
+参数说明 
 
-* w			&nbsp;&nbsp;output target 
+* w			&nbsp;&nbsp;输出目地址
 
+## SonarQube 代码质量审查
 
-## SonarQube check
+### 前置条件
 
-### requirements
+* 已安装SonarQube
+* 已配置本地sonar scanner
 
-* SonarQube have been installed 
-* sonar scanner have been configured on local machine
-
-### run command
+### 执行指令
 
 ```
 go test -coverprofile=testing/coverprofile
 sonar-scanner
 ```
 
-## Reference
+## Reference(参考资料)
 
 [震惊！原来命令行还可以这么玩？！ ](http://kissyu.org/2017/11/25/%E9%9C%87%E6%83%8A%EF%BC%81%E5%8E%9F%E6%9D%A5%E5%91%BD%E4%BB%A4%E8%A1%8C%E8%BF%98%E5%8F%AF%E4%BB%A5%E8%BF%99%E4%B9%88%E7%8E%A9%EF%BC%9F%EF%BC%81/)
 
