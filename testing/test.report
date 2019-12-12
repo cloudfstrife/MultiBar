@@ -1,0 +1,7 @@
+{"Time":"2019-12-12T18:37:52.06342+08:00","Action":"run","Package":"github.com/cloudfstrife/bar","Test":"TestBar"}
+{"Time":"2019-12-12T18:37:52.0913401+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestBar","Output":"=== RUN   TestBar\n"}
+{"Time":"2019-12-12T18:37:52.0913401+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestBar","Output":"--- PASS: TestBar (0.00s)\n"}
+{"Time":"2019-12-12T18:37:52.0913401+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Test":"TestBar","Elapsed":0}
+{"Time":"2019-12-12T18:37:52.0913401+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Output":"PASS\n"}
+{"Time":"2019-12-12T18:37:52.0913401+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Output":"ok  \tgithub.com/cloudfstrife/bar\t0.211s\n"}
+{"Time":"2019-12-12T18:37:52.0923374+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Elapsed":0.212}
