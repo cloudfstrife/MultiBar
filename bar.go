@@ -90,6 +90,9 @@ func (bar *Bar) Sout(max int) string {
 	if bar.Percent > 100 {
 		bar.Percent = 100
 	}
+	if bar.Percent < 0 {
+		bar.Percent = 0
+	}
 	var processed = bytes.NewBufferString("")
 	for i := 0; i < bar.Percent; i++ {
 		processed.WriteRune(bar.ProcessedFlag)

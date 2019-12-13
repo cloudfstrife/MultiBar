@@ -53,9 +53,8 @@ func (bars *MultiBar) Show(w io.Writer) {
 // bar 进度条指针
 // 注意：title不可重名
 func (bars *MultiBar) Append(bar *Bar) {
-	if bars.bars == nil {
-		bars.bars = []*Bar{}
-	}
+	bars.lock.Lock()
+	defer bars.lock.Unlock()
 	bars.bars = append(bars.bars, bar)
 	if len(bar.Title) > bars.max {
 		bars.max = len(bar.Title)
