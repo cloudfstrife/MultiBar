@@ -1,35 +1,35 @@
-{"Time":"2019-12-13T12:14:13.1520478+08:00","Action":"run","Package":"github.com/cloudfstrife/bar","Test":"TestSout"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestSout","Output":"=== RUN   TestSout\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestSout","Output":"--- PASS: TestSout (0.00s)\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Test":"TestSout","Elapsed":0}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"run","Package":"github.com/cloudfstrife/bar","Test":"TestNewDefault"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestNewDefault","Output":"=== RUN   TestNewDefault\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestNewDefault","Output":"--- PASS: TestNewDefault (0.00s)\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Test":"TestNewDefault","Elapsed":0}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"run","Package":"github.com/cloudfstrife/bar","Test":"TestShow"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestShow","Output":"=== RUN   TestShow\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestShow","Output":"--- PASS: TestShow (0.00s)\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Test":"TestShow","Elapsed":0}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"run","Package":"github.com/cloudfstrife/bar","Test":"TestShowWithClean"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestShowWithClean","Output":"=== RUN   TestShowWithClean\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestShowWithClean","Output":"--- PASS: TestShowWithClean (0.00s)\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Test":"TestShowWithClean","Elapsed":0}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"run","Package":"github.com/cloudfstrife/bar","Test":"TestNewMultiBar"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestNewMultiBar","Output":"=== RUN   TestNewMultiBar\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestNewMultiBar","Output":"--- PASS: TestNewMultiBar (0.00s)\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Test":"TestNewMultiBar","Elapsed":0}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"run","Package":"github.com/cloudfstrife/bar","Test":"TestAppend"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestAppend","Output":"=== RUN   TestAppend\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestAppend","Output":"--- PASS: TestAppend (0.00s)\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Test":"TestAppend","Elapsed":0}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"run","Package":"github.com/cloudfstrife/bar","Test":"TestMultiBarShow"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestMultiBarShow","Output":"=== RUN   TestMultiBarShow\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestMultiBarShow","Output":"--- PASS: TestMultiBarShow (0.00s)\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Test":"TestMultiBarShow","Elapsed":0}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"run","Package":"github.com/cloudfstrife/bar","Test":"TestMultiBarShowAgain"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestMultiBarShowAgain","Output":"=== RUN   TestMultiBarShowAgain\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestMultiBarShowAgain","Output":"--- PASS: TestMultiBarShowAgain (0.00s)\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Test":"TestMultiBarShowAgain","Elapsed":0}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Output":"PASS\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Output":"ok  \tgithub.com/cloudfstrife/bar\t0.236s\n"}
-{"Time":"2019-12-13T12:14:13.1829667+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Elapsed":0.236}
+{"Time":"2020-03-31T16:24:48.748219+08:00","Action":"run","Package":"github.com/cloudfstrife/bar","Test":"TestSout"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestSout","Output":"=== RUN   TestSout\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestSout","Output":"--- PASS: TestSout (0.00s)\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Test":"TestSout","Elapsed":0}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"run","Package":"github.com/cloudfstrife/bar","Test":"TestNewDefault"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestNewDefault","Output":"=== RUN   TestNewDefault\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestNewDefault","Output":"--- PASS: TestNewDefault (0.00s)\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Test":"TestNewDefault","Elapsed":0}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"run","Package":"github.com/cloudfstrife/bar","Test":"TestShow"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestShow","Output":"=== RUN   TestShow\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestShow","Output":"--- PASS: TestShow (0.00s)\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Test":"TestShow","Elapsed":0}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"run","Package":"github.com/cloudfstrife/bar","Test":"TestShowWithClean"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestShowWithClean","Output":"=== RUN   TestShowWithClean\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestShowWithClean","Output":"--- PASS: TestShowWithClean (0.00s)\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Test":"TestShowWithClean","Elapsed":0}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"run","Package":"github.com/cloudfstrife/bar","Test":"TestNewMultiBar"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestNewMultiBar","Output":"=== RUN   TestNewMultiBar\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestNewMultiBar","Output":"--- PASS: TestNewMultiBar (0.00s)\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Test":"TestNewMultiBar","Elapsed":0}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"run","Package":"github.com/cloudfstrife/bar","Test":"TestAppend"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestAppend","Output":"=== RUN   TestAppend\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestAppend","Output":"--- PASS: TestAppend (0.00s)\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Test":"TestAppend","Elapsed":0}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"run","Package":"github.com/cloudfstrife/bar","Test":"TestMultiBarShow"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestMultiBarShow","Output":"=== RUN   TestMultiBarShow\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestMultiBarShow","Output":"--- PASS: TestMultiBarShow (0.00s)\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Test":"TestMultiBarShow","Elapsed":0}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"run","Package":"github.com/cloudfstrife/bar","Test":"TestMultiBarShowAgain"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestMultiBarShowAgain","Output":"=== RUN   TestMultiBarShowAgain\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Test":"TestMultiBarShowAgain","Output":"--- PASS: TestMultiBarShowAgain (0.00s)\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Test":"TestMultiBarShowAgain","Elapsed":0}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Output":"PASS\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"output","Package":"github.com/cloudfstrife/bar","Output":"ok  \tgithub.com/cloudfstrife/bar\t0.200s\n"}
+{"Time":"2020-03-31T16:24:48.7611149+08:00","Action":"pass","Package":"github.com/cloudfstrife/bar","Elapsed":0.2}
